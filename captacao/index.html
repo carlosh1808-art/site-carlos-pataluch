@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos Pataluch | Corretor Especialista em Imóveis Antigos — Curitiba</title>
+    <meta name="description" content="Especialista em imóveis antigos, herdados e com documentação complexa em Curitiba e Região Metropolitana. Fale com o Carlos.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coal: #1C1C1E;
+            --coal-light: #2C2C2F;
+            --copper: #B5651D;
+            --copper-hover: #CA7733;
+            --sand: #F0EAE0;
+            --sand-dim: rgba(240, 234, 224, 0.82);
+            --grey: #9A9A9A;
+            --border: rgba(240, 234, 224, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { background-color: var(--coal); }
+
+        body {
+            color: var(--sand);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            width: 100%;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 18%;
+            border: 1.5px solid rgba(181, 101, 29, 0.45);
+            flex-shrink: 0;
+        }
+
+        .header-text { text-align: left; }
+
+        .header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: var(--sand);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .header span {
+            display: block;
+            font-size: 0.62rem;
+            color: var(--copper);
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+        }
+
+        /* ── BACKDROP DECORATIVO — SOMENTE DESKTOP ── */
+        /* Mobile permanece 100% limpo; em telas grandes evita sensação de vazio */
+        .page-backdrop {
+            display: none;
+        }
+
+        /* ── CONTAINER PRINCIPAL ── */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .copy-section {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.67rem;
+            font-weight: 600;
+            color: var(--copper);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            line-height: 1.15;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--sand-dim);
+            font-weight: 300;
+        }
+
+        /* ── FORM CARD ── */
+        .form-card {
+            background-color: var(--coal-light);
+            padding: 32px 24px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .form-group { margin-bottom: 24px; }
+
+        label.field-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--sand-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            background-color: var(--coal);
+            border: 1px solid var(--border);
+            color: var(--sand);
+            padding: 16px;
+            font-size: 0.95rem;
+            border-radius: 3px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]::placeholder, input[type="tel"]::placeholder {
+            color: rgba(240, 234, 224, 0.35);
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--copper);
+            background-color: rgba(181, 101, 29, 0.05);
+        }
+
+        /* ── RADIO CARDS ── */
+        .radio-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-card {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+
+        .radio-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-card-content {
+            background-color: var(--coal);
+            border: 1px solid var(--border);
+            color: var(--sand);
+            padding: 16px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .radio-card:hover .radio-card-content {
+            border-color: rgba(240, 234, 224, 0.25);
+        }
+
+        .radio-card input[type="radio"]:checked + .radio-card-content {
+            border-color: var(--copper);
+            background-color: rgba(181, 101, 29, 0.12);
+            color: var(--sand);
+            font-weight: 500;
+        }
+
+        /* ── LGPD ── */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-top: 4px;
+            accent-color: var(--copper);
+            flex-shrink: 0;
+        }
+
+        .checkbox-text {
+            font-size: 0.75rem;
+            color: var(--sand-dim);
+            line-height: 1.5;
+        }
+
+        .checkbox-text a {
+            color: var(--copper);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            cursor: pointer;
+        }
+
+        /* ── BOTÃO ── */
+        button {
+            width: 100%;
+            background-color: var(--copper);
+            color: var(--sand);
+            border: none;
+            padding: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover { background-color: var(--copper-hover); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ── RODAPÉ DE CONFIANÇA (dentro do card, após o botão) ── */
+        .trust-footer {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .trust-item { text-align: left; }
+
+        .trust-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 4px;
+        }
+
+        .trust-text {
+            font-size: 0.8rem;
+            font-weight: 300;
+            line-height: 1.55;
+            color: var(--sand-dim);
+        }
+
+        /* ── FOOTER DA PÁGINA ── */
+        .site-footer {
+            width: 100%;
+            max-width: 500px;
+            padding: 24px 24px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .footer-links a {
+            font-size: 0.68rem;
+            color: var(--grey);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover { color: var(--copper); }
+
+        .footer-copy {
+            font-size: 0.62rem;
+            color: var(--grey);
+            opacity: 0.6;
+        }
+
+        /* ── MODAL DE PRIVACIDADE ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 20, 22, 0.92);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background-color: var(--coal-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 32px 24px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--grey);
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+        }
+
+        .modal-close:hover { color: var(--sand); }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+            padding-right: 24px;
+        }
+
+        .modal-body {
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--sand-dim);
+        }
+
+        .modal-body p { margin-bottom: 13px; }
+        .modal-body strong { color: var(--sand); font-weight: 600; }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* DESKTOP — backdrop decorativo sutil (Opção A, sem firula) */
+        /* Mobile permanece intocado abaixo deste breakpoint        */
+        /* ─────────────────────────────────────────────────────── */
+        @media (min-width: 900px) {
+            .page-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 0;
+                background:
+                    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(181, 101, 29, 0.07) 0%, transparent 60%),
+                    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(181, 101, 29, 0.05) 0%, transparent 60%),
+                    var(--coal);
+            }
+
+            .header { padding: 22px 24px; }
+
+            .container { padding: 64px 24px 40px; }
+
+            .headline { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Backdrop decorativo — só renderiza visualmente em desktop via CSS acima -->
+    <div class="page-backdrop"></div>
+
+    <header class="header">
+        <img class="header-avatar" src="data:image/jpeg;base64,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" alt="Carlos Pataluch">
+        <div class="header-text">
+            <h2>Carlos Pataluch</h2>
+            <span>CRECI-PR Nº [00000]</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="copy-section">
+            <span class="eyebrow">Corretor Especialista em Curitiba</span>
+            <h1 class="headline">Vamos destravar a venda do seu imóvel?</h1>
+            <p class="subtitle">Selecione a opção que melhor descreve o cenário atual da sua propriedade para apresentar os próximos passos.</p>
+        </section>
+
+        <section class="form-card">
+            <form id="leadForm">
+                <div class="form-group">
+                    <label class="field-label">Qual o seu nome completo?</label>
+                    <input type="text" id="nome" required placeholder="Digite seu nome">
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label">Qual o seu WhatsApp?</label>
+                    <input type="tel" id="whatsapp" required placeholder="(41) 99999-9999">
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label">Qual a situação atual do imóvel?</label>
+                    <div class="radio-stack">
+                        <label class="radio-card">
+                            <input type="radio" name="situacao_imovel" value="Herança / Inventário" required>
+                            <div class="radio-card-content">É uma herança / inventário</div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="situacao_imovel" value="Anunciado e não vende">
+                            <div class="radio-card-content">Está anunciado, mas não vende</div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="situacao_imovel" value="Antigo / Reformas">
+                            <div class="radio-card-content">Imóvel antigo ou com reformas pendentes</div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="situacao_imovel" value="Entender processo">
+                            <div class="radio-card-content">Quero entender o processo de venda</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="lgpd" required>
+                    <span class="checkbox-text">
+                        Li e aceito a <a onclick="openModal(event)">Política de Privacidade</a> e autorizo o uso dos meus dados para contato comercial e para mensuração de resultados em plataformas de publicidade digital.
+                    </span>
+                </div>
+
+                <button type="submit" id="btnSubmit">Solicitar Atendimento</button>
+
+                <!-- Rodapé de confiança — reintroduzido conforme decisão: -->
+                <!-- removido "comprador garantido" (promessa absoluta), -->
+                <!-- área de atuação ampliada para Curitiba e Região Metropolitana -->
+                <div class="trust-footer">
+                    <div class="trust-item">
+                        <div class="trust-label">Especialidade</div>
+                        <div class="trust-text">Imóveis usados, antigos, herdados ou com documentação enrolada que ficam parados no mercado.</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-label">Área de Atuação</div>
+                        <div class="trust-text">Curitiba e Região Metropolitana.</div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a onclick="openModal(event)">Privacidade</a>
+            <a href="#leadForm">Contato</a>
+        </div>
+        <span class="footer-copy">© 2026 Carlos Pataluch. Todos os direitos reservados.</span>
+    </footer>
+
+    <!-- ── MODAL DE POLÍTICA DE PRIVACIDADE ── -->
+    <div class="modal-overlay" id="modal-priv" onclick="closeOnBg(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()" aria-label="Fechar">&times;</button>
+            <h2 class="modal-title">Política de Privacidade</h2>
+            <div class="modal-body">
+                <p><strong>Controlador:</strong> Carlos Pataluch, Corretor de Imóveis, CRECI-PR Nº [00000]. Contato: [email@dominio.com.br]</p>
+                <p><strong>Dados coletados:</strong> nome completo, número de WhatsApp e situação do imóvel, fornecidos voluntariamente ao preencher o formulário desta página.</p>
+                <p><strong>Finalidade:</strong> contato comercial relacionado à intermediação imobiliária, e mensuração de resultados de campanhas publicitárias.</p>
+                <p><strong>Base legal (LGPD):</strong> consentimento do titular (Art. 7º, I da Lei nº 13.709/2018).</p>
+                <p><strong>Plataformas de publicidade:</strong> parte dos dados técnicos (identificadores de clique) poderá ser compartilhada com a Meta (Facebook/Instagram) exclusivamente para mensuração e atribuição de resultados da campanha.</p>
+                <p><strong>Retenção:</strong> dados mantidos pelo período necessário à prestação do serviço ou até solicitação de exclusão pelo titular.</p>
+                <p><strong>Direitos do titular:</strong> acesso, correção, portabilidade ou exclusão dos dados, e revogação do consentimento, a qualquer momento, pelo e-mail acima.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═════════════════════════════════════════════════════════════════
+        // CONFIGURAÇÃO — apenas dados não-sensíveis ficam aqui.
+        //
+        // WORKER_URL  → endereço público do seu Worker. Não é segredo: é só
+        //               "para onde mandar o POST". As credenciais de fato
+        //               (token da Meta, URL do Apps Script, acesso ao banco)
+        //               NUNCA vêm para este arquivo — ficam exclusivamente
+        //               como variáveis de ambiente dentro do Worker.
+        //
+        // WA_NUMBER   → seu número de WhatsApp. Informação já pública.
+        // ═════════════════════════════════════════════════════════════════
+        const CONFIG = {
+            WORKER_URL: 'SUA_URL_DO_WORKER_AQUI',
+            WA_NUMBER: '5541999999999'
+        };
+
+        // ═════════════════════════════════════════════════════════════════
+        // ⬇⬇⬇  ESPAÇO RESERVADO PARA TAGS DE RASTREAMENTO  ⬇⬇⬇
+        //
+        // O Pixel da Meta NÃO é colado aqui como script. Ele é configurado
+        // diretamente no Cloudflare Dashboard → Zaraz → Add Tool → Meta Pixel.
+        // A Cloudflare injeta o Pixel na borda (edge-side) automaticamente
+        // em todo carregamento de página — por isso você não verá nenhuma
+        // tag <script src="connect.facebook.net..."> neste arquivo.
+        //
+        // O que ESTE arquivo precisa saber sobre o Zaraz é apenas a chamada
+        // de evento abaixo (já implementada na função handleSubmit):
+        //   zaraz.track('Lead', { event_id: ... })
+        //
+        // Se no futuro for necessário adicionar outro pixel ou tag que EXIJA
+        // código direto no HTML (ex: alguma ferramenta sem suporte no Zaraz),
+        // adicione aqui, dentro deste bloco, mantendo o comentário de
+        // identificação para facilitar auditoria futura:
+        //
+        // <!-- INÍCIO TAG: [nome da ferramenta] -->
+        // ... código aqui ...
+        // <!-- FIM TAG: [nome da ferramenta] -->
+        //
+        // ⬆⬆⬆  FIM DO ESPAÇO RESERVADO  ⬆⬆⬆
+        // ═════════════════════════════════════════════════════════════════
+
+        const PAGE_LOAD_TIMESTAMP = Date.now();
+        function getTimeOnPage() { return Math.round((Date.now() - PAGE_LOAD_TIMESTAMP) / 1000); }
+
+        function generateEventId() {
+            if (typeof crypto !== 'undefined' && crypto.randomUUID) return 'lead_' + crypto.randomUUID();
+            return 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
+        }
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const fbclid = params.get('fbclid') || '';
+            return {
+                utm_source: params.get('utm_source') || '',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || '',
+                utm_content: params.get('utm_content') || '',
+                fbclid: fbclid,
+                fbc: fbclid ? `fb.1.${PAGE_LOAD_TIMESTAMP}.${fbclid}` : ''
+            };
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('btnSubmit');
+            btn.innerText = 'Processando...';
+            btn.disabled = true;
+
+            const nome = document.getElementById('nome').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+
+            const selectedRadio = document.querySelector('input[name="situacao_imovel"]:checked');
+            const situacao = selectedRadio ? selectedRadio.value : '';
+
+            const event_id = generateEventId();
+
+            const payload = {
+                nome: nome,
+                whatsapp: whatsapp,
+                situacao_imovel: situacao,
+                event_id: event_id,
+                ...getUrlParams(),
+                user_agent: navigator.userAgent,
+                dispositivo: /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
+                referrer: document.referrer || '',
+                landing_page_url: window.location.href,
+                tempo_na_pagina_segundos: getTimeOnPage(),
+                timestamp: new Date().toISOString()
+            };
+
+            // Disparo 1: Pixel via Zaraz (edge-side) — event_id idêntico ao do Worker
+            if (typeof zaraz !== 'undefined') {
+                zaraz.track('Lead', { event_id: event_id, content_name: 'LP Captura Mobile v3' });
+            }
+
+            // Disparo 2: Worker (CAPI + D1 + Sheets) — keepalive garante entrega
+            // mesmo com o redirecionamento imediato abaixo
+            fetch(CONFIG.WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                keepalive: true
+            });
+
+            const msg = encodeURIComponent(`Olá Carlos, me chamo ${nome}. Tenho interesse na análise do meu imóvel (Situação: ${situacao}).`);
+            window.location.href = `https://wa.me/${CONFIG.WA_NUMBER}?text=${msg}`;
+        });
+
+        // ── Modal de Privacidade ──
+        function openModal(e) {
+            e.preventDefault();
+            document.getElementById('modal-priv').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('modal-priv').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function closeOnBg(e) {
+            if (e.target === document.getElementById('modal-priv')) closeModal();
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
+</html>
